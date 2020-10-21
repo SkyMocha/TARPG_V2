@@ -7,20 +7,19 @@
 
 #include "Tile.hpp"
 
-
 void Tile::setChar(){
     
     if (val == 0) {
-        setCh(' ');
+        setCh(" ");
     }
     else if (val < 0.3) {
-        setCh('~');
+        setCh("~");
     }
     else if (val < 0.75) {
-        setCh('#');
+        setCh("#");
     }
     else if (val < 1) {
-        setCh('^');
+        setCh("^");
     }
     
 }

@@ -5,7 +5,7 @@ Game *game = nullptr;
 int WINDOW_WIDTH = 1280;
 int WINDOW_HEIGHT = 720;
 
-TTF_Font* font = nullptr;
+TTF_Font *font = nullptr;
 
 bool load_res ()
 {

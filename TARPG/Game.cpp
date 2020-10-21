@@ -33,11 +33,11 @@ void Game::init(const char *title, int width, int height, bool fullscreen)
             std::cout << "Renderer created!" << std::endl;
         }
         
-        player = new Player(width/2, height/2, font, renderer);
+        player = new Player(width/2/16, height/2/16, font);
         
         isRunning = true;
         
-        map = new Map (font, renderer);
+        map = new Map (font, renderer, width, height);
         
     }
     else {
@@ -77,9 +77,12 @@ void Game::render()
     SDL_RenderClear(renderer);
     
     // Render stuff below:
-    player->render();
+    map->render(renderer);
+    player->render(renderer);
     
     SDL_RenderPresent(renderer);
+    
+    SDL_Delay( ( 1000 / 20 ) );
 }
 
 void Game::clean()

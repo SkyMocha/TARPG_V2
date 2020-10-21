@@ -1,1 +1,1 @@
-g++ main.cpp -o main -I include/SDL2 -lSDL_image -lSDL_ttf -L lib -l SDL2-2.0.0
+g++ main.cpp -o main -I ./include/SDL2 -lSDL_image -lSDL_ttf -L ./lib -l SDL2-2.0.0

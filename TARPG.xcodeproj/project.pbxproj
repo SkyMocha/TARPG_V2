@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		015011442529018B00C32851 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 015011422529018B00C32851 /* Tile.cpp */; };
 		01501147252901B800C32851 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01501145252901B800C32851 /* Map.cpp */; };
+		015C80FC253E0E3600CD43DB /* Perlin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 015C80FA253E0E3600CD43DB /* Perlin.cpp */; };
 		018A64C92527C79E004864F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 018A64C82527C79E004864F8 /* main.cpp */; };
 		018A64D12527C858004864F8 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018A64D02527C858004864F8 /* SDL2.framework */; };
 		018A64D42527C8E0004864F8 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018A64D22527C8E0004864F8 /* SDL2_ttf.framework */; };
@@ -35,7 +36,8 @@
 		015011432529018B00C32851 /* Tile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tile.hpp; sourceTree = "<group>"; };
 		01501145252901B800C32851 /* Map.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
 		01501146252901B800C32851 /* Map.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Map.hpp; sourceTree = "<group>"; };
-		0150114A252904E800C32851 /* OpenSimplexNoise.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenSimplexNoise.hpp; sourceTree = "<group>"; };
+		015C80FA253E0E3600CD43DB /* Perlin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Perlin.cpp; sourceTree = "<group>"; };
+		015C80FB253E0E3600CD43DB /* Perlin.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Perlin.hpp; sourceTree = "<group>"; };
 		018A64C52527C79E004864F8 /* TARPG */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TARPG; sourceTree = BUILT_PRODUCTS_DIR; };
 		018A64C82527C79E004864F8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		018A64D02527C858004864F8 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
@@ -64,14 +66,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01501148252904B600C32851 /* 3rd-Party */ = {
-			isa = PBXGroup;
-			children = (
-				0150114A252904E800C32851 /* OpenSimplexNoise.hpp */,
-			);
-			path = "3rd-Party";
-			sourceTree = "<group>";
-		};
 		018A64BC2527C79E004864F8 = {
 			isa = PBXGroup;
 			children = (
@@ -92,7 +86,6 @@
 		018A64C72527C79E004864F8 /* TARPG */ = {
 			isa = PBXGroup;
 			children = (
-				01501148252904B600C32851 /* 3rd-Party */,
 				018A64D62527C978004864F8 /* assets */,
 				018A64C82527C79E004864F8 /* main.cpp */,
 				018A64D72527CAC4004864F8 /* ASCII_Char.cpp */,
@@ -105,6 +98,8 @@
 				015011432529018B00C32851 /* Tile.hpp */,
 				01501145252901B800C32851 /* Map.cpp */,
 				01501146252901B800C32851 /* Map.hpp */,
+				015C80FA253E0E3600CD43DB /* Perlin.cpp */,
+				015C80FB253E0E3600CD43DB /* Perlin.hpp */,
 			);
 			path = TARPG;
 			sourceTree = "<group>";
@@ -180,6 +175,7 @@
 				01D300962528B55000434D23 /* Player.cpp in Sources */,
 				018A64DC2527CFE4004864F8 /* Game.cpp in Sources */,
 				018A64C92527C79E004864F8 /* main.cpp in Sources */,
+				015C80FC253E0E3600CD43DB /* Perlin.cpp in Sources */,
 				018A64D92527CAC4004864F8 /* ASCII_Char.cpp in Sources */,
 				015011442529018B00C32851 /* Tile.cpp in Sources */,
 			);
@@ -301,6 +297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
