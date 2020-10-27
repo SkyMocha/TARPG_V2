@@ -51,18 +51,22 @@ Map::Map(TTF_Font *tf, SDL_Renderer *tr, int sh, int sw) {
 // x, y are the positions on the screen
 // w, h are the place on the world map
 void Map::render (SDL_Renderer *ren) {
+    
     int x = 0;
     int y = 0;
-    for (int w = (display_x - screen_width/2/16); w < (display_x + screen_width/2/16); w++) {
+    // Loops through the part of the map that starts at display_x and ends at the screen width
+    for (int w = (display_x - screen_width/2/16); w <= (display_x + screen_width/2/16); w++) {
         for (int h = (display_y - screen_height/2/16); h < (display_y + screen_height/2/16); h++) {
-//
+            
 //          CHECKS TO SEE TiLE IS IN BORDERS
-            if (tiles[w][h]) {
-                tiles[w][h]->render(ren, x, y);
+            if (tiles[w][h]) { // Checks to see that the tile exists
+                if ((int)y/16 != (int)screen_width/2/16 || (int)x/16 != (int)screen_height/2/16) { // Does not render the tile below the player
+                    tiles[w][h]->render(ren, x, y);
+                }
             }
-            y+=16;
+            x+=16;
         }
-        y = 0;
-        x+=16;
+        x = 0;
+        y+=16;
     }
 }

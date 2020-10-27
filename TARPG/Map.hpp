@@ -28,9 +28,9 @@ private:
     
     TTF_Font *ttf;
     
-    int display_x = 175;
+    int display_x = 200;
     int screen_width;
-    int display_y = 175;
+    int display_y = 200;
     int screen_height;
 };
 

@@ -44,7 +44,7 @@ class ASCII_Char
     
         void update_pos(int x, int y);
     
-        void setCh (char *c) { ch = c; };
+        void setCh (char const *c) { ch = c; };
             
         void log ();
 

@@ -10,7 +10,8 @@ TTF_Font *font = nullptr;
 bool load_res ()
 {
     if (TTF_Init()!=-1) {
-        font = TTF_OpenFont("./assets/open-sans.ttf", 16);
+//      https://www.dafont.com/cubic.font
+        font = TTF_OpenFont("./assets/squarefont.ttf", 16);
         std::cout << TTF_GetError() << std::endl;
         if (font) {
             return true;

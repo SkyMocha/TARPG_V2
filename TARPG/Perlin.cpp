@@ -22,6 +22,7 @@ Noise::Noise (int s) {
     int nOctaves = 6;
 //  2D Perlin-like noise generation
     for (int x = 0; x < size; x++) {
+        std::cout << (double)x/size * 100 << std::endl;
         for (int y = 0; y < size; y++) {
             
             float fNoise = 0.0f;

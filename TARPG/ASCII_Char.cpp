@@ -12,7 +12,7 @@ ASCII_Char::ASCII_Char(char const *c, int tx, int ty, TTF_Font *tf) {
     x = tx * 16;
     y = ty * 16;
     f = tf; //FONT
-    
+        
     rect.w = 16; // controls the width of the rect
     rect.h = 16; // controls the height of the rect
 }
@@ -28,13 +28,13 @@ void ASCII_Char::update_pos (int tx, int ty) {
 
 // RENDERS AT SPECIFIC POS
 void ASCII_Char::render(SDL_Renderer *ren, int tx, int ty) {
-
-    surface = TTF_RenderText_Solid(f, ch, color); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
-    
-    message = SDL_CreateTextureFromSurface(ren, surface); //now you can convert it into a texture
     
     rect.x = tx;  //controls the rect's x coordinate
     rect.y = ty; // controls the rect's y coordinte
+    
+    surface = TTF_RenderText_Solid(f, ch, color); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
+    
+    message = SDL_CreateTextureFromSurface(ren, surface); //now you can convert it into a texture
     
     SDL_RenderCopy(ren, message, NULL, &rect);
 }
