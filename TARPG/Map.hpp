@@ -24,6 +24,8 @@ public:
     void render_chunk (SDL_Renderer *ren, int i, int j, int chunk_size);
     void render_all_chunks (SDL_Renderer *ren);
     
+    void derender(int dx, int dy);
+    
     void move (int tx, int ty);
     
 private:

@@ -15,7 +15,7 @@ public:
     Player() : ASCII_Char () { };
     Player(int x, int y, TTF_Font *f, SDL_Renderer *ren) : ASCII_Char("@", x, y, f, ren) { };
     ~Player();
-
+    
 private:
 
 };

@@ -47,6 +47,8 @@ class ASCII_Char
     
         void setCh (char const *c) { ch = c; };
             
+        void store (); 
+    
         void log ();
 
     private:
@@ -59,6 +61,7 @@ class ASCII_Char
         SDL_Rect rect;
         TTF_Font* f;
         SDL_Renderer* r;
+        bool stored;
 };
 
 

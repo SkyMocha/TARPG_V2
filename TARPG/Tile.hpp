@@ -18,10 +18,12 @@ public:
     ~Tile();
     
     void setVal (double v) { val = v; };
+    void setVariant (int v) { variant = v; };
     void setChar ();
     
 private:
     double val;
+    int variant;
     
 };
 

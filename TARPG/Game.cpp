@@ -53,7 +53,7 @@ void Game::set_font(TTF_Font *tf)
 }
 
 void Game::handle_keys (int key) {
-    std::cout << key << std::endl;
+    std::cout << "KEY PRESSED" << std::endl;
     switch (key) {
         case SDLK_w:
             map->move(0, 1);

@@ -36,6 +36,20 @@ void Tile::setChar(){
     else if (val < 0.75) {
         setCh("#");
         Set_Color (20, 200, 30);
+        if (variant > 95) {
+            setCh("!");
+            Set_Color(30, 80, 50);
+        }
+        else if (variant > 80) {
+            setCh("%");
+            Set_Color(16, 59, 29);
+        }
+        else if (variant > 65) {
+            Set_Color (20, 180, 40);
+        }
+        else if (variant > 40) {
+            Set_Color (25, 165, 50);
+        }
     }
 //   MOUNTAINS
     else if (val < 1) {

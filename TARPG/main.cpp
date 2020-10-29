@@ -20,6 +20,14 @@ bool load_res ()
     return false;
 }
 
+bool render_thread () {
+    while (game->is_running()) {
+        game->render();
+        SDL_Delay(1000/60);
+    }
+    return true;
+};
+
 int main( )
 {
     
@@ -35,15 +43,16 @@ int main( )
     
     game->set_font (font);
     game->init("SKYMOCHA T-ARPG", WINDOW_WIDTH, WINDOW_HEIGHT, false);
-    
+
+    std::thread rt(render_thread);
+
     while (game->is_running()) {
         game->handle_events();
-        game->update();
-        game->render();
-        SDL_Delay( ( 1000 / 60 ) );
-    }
+        SDL_Delay(1000/30);
+    };
     
+    rt.join();
     game->clean();
-
+    
 	return 0;
 }

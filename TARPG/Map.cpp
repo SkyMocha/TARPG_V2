@@ -39,6 +39,7 @@ Map::Map(TTF_Font *tf, SDL_Renderer *tr, int sh, int sw) {
             tiles[w][h] = new Tile(" ", w, h, tf, tr);
             
             tiles[w][h]->setVal( noise->get(w, h));
+            tiles[w][h]->setVariant ( rand() % 100 );
             
             tiles[w][h]->setChar ();
             
@@ -76,7 +77,6 @@ void Map::render (SDL_Renderer *ren) {
 
 void Map::render_all_chunks (SDL_Renderer *ren) {
     int chunk_size = 16;
-//    int s = screen_width/16/chunk_size * screen_height/16/chunk_size;
     for (int w = 0; w <= screen_width/16/chunk_size; w++) {
         for (int h = 0; h <= screen_height/16/chunk_size; h++) {
             std::thread t( &Map::render_chunk, this, ren, w, h, chunk_size );
@@ -88,10 +88,10 @@ void Map::render_all_chunks (SDL_Renderer *ren) {
 void Map::render_chunk (SDL_Renderer *ren, int i, int j, int chunk_size) {
     int x = j*chunk_size*16;
     int y = i*chunk_size*16;
-    std::cout << "LOADING CHUNK: ";
-    std::cout << i;
-    std::cout << " | ";
-    std::cout << j << std::endl;
+//    std::cout << "LOADING CHUNK: ";
+//    std::cout << i;
+//    std::cout << " | ";
+//    std::cout << j << std::endl;
     // Loops through the part of the map that starts at display_x and ends at the screen width
     for (int w = pos_x + i; w <= pos_x + i + chunk_size; w++) {
         for (int h = pos_y + j; h < pos_y + j + chunk_size; h++) {
@@ -109,10 +109,35 @@ void Map::render_chunk (SDL_Renderer *ren, int i, int j, int chunk_size) {
     }
 }
 
+// Derenders the outer-most line in a certain direction
+void Map::derender (int dx, int dy) {
+//   Derender upwards or downwards
+    if (dx == 0) {
+        int pos = pos_y - screen_height/2/16*dy;
+        for (int i = 0; i < screen_width/16; i++) {
+            std::cout << i;
+            std::cout << " | ";
+            std::cout << pos << std::endl;
+            tiles[i][pos]->clean();
+        }
+    }
+//   Derender left or right
+    else {
+        int pos = pos_x - screen_width/2/16*dx;
+        for (int i = 0; i < screen_height/16; i++) {
+            std::cout << i;
+            std::cout << " | ";
+            std::cout << pos << std::endl;
+            tiles[pos][i]->clean();
+        }
+    }
+}
+
 void Map::move (int x, int y) {
     pos_x += y;
     pos_y += x * -1;
-    std::cout << x;
-    std::cout << " | ";
-    std::cout << y << std::endl;
+//    std::cout << x;
+//    std::cout << " | ";
+//    std::cout << y << std::endl;
+//    derender(y, x);
 }
