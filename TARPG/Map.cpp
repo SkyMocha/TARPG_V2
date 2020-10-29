@@ -36,7 +36,7 @@ Map::Map(TTF_Font *tf, SDL_Renderer *tr, int sh, int sw) {
     for (int w = 0; w < size; w++) {
         for (int h = 0; h < size; h++) {
             
-            tiles[w][h] = new Tile(" ", w, h, tf);
+            tiles[w][h] = new Tile(" ", w, h, tf, tr);
             
             tiles[w][h]->setVal( noise->get(w, h));
             
@@ -44,6 +44,8 @@ Map::Map(TTF_Font *tf, SDL_Renderer *tr, int sh, int sw) {
             
         }
     }
+    
+    noise->~Noise();
     
 }
 
@@ -55,8 +57,44 @@ void Map::render (SDL_Renderer *ren) {
     int x = 0;
     int y = 0;
     // Loops through the part of the map that starts at display_x and ends at the screen width
-    for (int w = (display_x - screen_width/2/16); w <= (display_x + screen_width/2/16); w++) {
-        for (int h = (display_y - screen_height/2/16); h < (display_y + screen_height/2/16); h++) {
+    for (int w = (pos_x - screen_width/2/16); w <= (pos_x + screen_width/2/16); w++) {
+        for (int h = (pos_y - screen_height/2/16); h < (pos_y + screen_height/2/16); h++) {
+            
+//          CHECKS TO SEE TiLE IS IN BORDERS
+            if (tiles[w][h]) { // Checks to see that the tile exists
+                if ((int)y/16 != (int)screen_width/2/16 || (int)x/16 != (int)screen_height/2/16) { // Does not render the tile below the player
+                    tiles[w][h]->render(ren, x, y);
+                    tiles[w][h]->clean();
+                }
+            }
+            x+=16;
+        }
+        x = 0;
+        y+=16;
+    }
+}
+
+void Map::render_all_chunks (SDL_Renderer *ren) {
+    int chunk_size = 16;
+//    int s = screen_width/16/chunk_size * screen_height/16/chunk_size;
+    for (int w = 0; w <= screen_width/16/chunk_size; w++) {
+        for (int h = 0; h <= screen_height/16/chunk_size; h++) {
+            std::thread t( &Map::render_chunk, this, ren, w, h, chunk_size );
+            t.join();
+        }
+    }
+}
+
+void Map::render_chunk (SDL_Renderer *ren, int i, int j, int chunk_size) {
+    int x = j*chunk_size*16;
+    int y = i*chunk_size*16;
+    std::cout << "LOADING CHUNK: ";
+    std::cout << i;
+    std::cout << " | ";
+    std::cout << j << std::endl;
+    // Loops through the part of the map that starts at display_x and ends at the screen width
+    for (int w = pos_x + i; w <= pos_x + i + chunk_size; w++) {
+        for (int h = pos_y + j; h < pos_y + j + chunk_size; h++) {
             
 //          CHECKS TO SEE TiLE IS IN BORDERS
             if (tiles[w][h]) { // Checks to see that the tile exists
@@ -66,7 +104,15 @@ void Map::render (SDL_Renderer *ren) {
             }
             x+=16;
         }
-        x = 0;
+        x = j*chunk_size*16;
         y+=16;
     }
+}
+
+void Map::move (int x, int y) {
+    pos_x += y;
+    pos_y += x * -1;
+    std::cout << x;
+    std::cout << " | ";
+    std::cout << y << std::endl;
 }

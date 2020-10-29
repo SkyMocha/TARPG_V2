@@ -40,6 +40,7 @@ int main( )
         game->handle_events();
         game->update();
         game->render();
+        SDL_Delay( ( 1000 / 60 ) );
     }
     
     game->clean();

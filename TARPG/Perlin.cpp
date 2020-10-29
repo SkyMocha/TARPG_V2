@@ -55,6 +55,7 @@ Noise::Noise (int s) {
 }
 
 Noise::~Noise () {
-    
+    delete fNoiseSeed2D;
+    delete fPerlinNoise2D;
 }
 

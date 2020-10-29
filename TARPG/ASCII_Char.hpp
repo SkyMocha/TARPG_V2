@@ -25,6 +25,7 @@ class ASCII_Char
         ASCII_Char () {};
         
         ASCII_Char(char const *c, int tx, int ty, TTF_Font *f);
+        ASCII_Char(char const *c, int tx, int ty, TTF_Font *f, SDL_Renderer *ren);
 
         //Deallocates memory
         ~ASCII_Char();

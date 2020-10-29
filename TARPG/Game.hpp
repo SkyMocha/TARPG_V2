@@ -20,6 +20,7 @@ public:
     
     void init(const char* title, int width, int height, bool fullscreen);
     void handle_events();
+    void handle_keys(int key);
     void update();
     void render();
     void clean();

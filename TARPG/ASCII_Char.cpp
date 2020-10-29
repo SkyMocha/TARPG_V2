@@ -7,7 +7,7 @@
 
 #include "ASCII_Char.hpp"
 
-ASCII_Char::ASCII_Char(char const *c, int tx, int ty, TTF_Font *tf) {
+ASCII_Char::ASCII_Char(char const *c, int tx, int ty, TTF_Font *tf, SDL_Renderer *ren) {
     ch = c;
     x = tx * 16;
     y = ty * 16;
@@ -15,6 +15,7 @@ ASCII_Char::ASCII_Char(char const *c, int tx, int ty, TTF_Font *tf) {
         
     rect.w = 16; // controls the width of the rect
     rect.h = 16; // controls the height of the rect
+
 }
 
 void ASCII_Char::Set_Color (Uint8 r, Uint8 g, Uint8 b) {
@@ -35,8 +36,9 @@ void ASCII_Char::render(SDL_Renderer *ren, int tx, int ty) {
     surface = TTF_RenderText_Solid(f, ch, color); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
     
     message = SDL_CreateTextureFromSurface(ren, surface); //now you can convert it into a texture
-    
+            
     SDL_RenderCopy(ren, message, NULL, &rect);
+    
 }
 
 // RENDERS AT DEFAULT POS

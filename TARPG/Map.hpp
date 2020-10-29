@@ -11,6 +11,7 @@
 #include "Tile.hpp"
 #include "Player.hpp"
 #include "Perlin.hpp"
+#include <thread>
 
 class Map {
     
@@ -20,6 +21,10 @@ public:
     
     double getTileVal (int x, int y);
     void render (SDL_Renderer *ren);
+    void render_chunk (SDL_Renderer *ren, int i, int j, int chunk_size);
+    void render_all_chunks (SDL_Renderer *ren);
+    
+    void move (int tx, int ty);
     
 private:
     int size = 500;
@@ -28,9 +33,9 @@ private:
     
     TTF_Font *ttf;
     
-    int display_x = 200;
+    int pos_x = 200;
     int screen_width;
-    int display_y = 200;
+    int pos_y = 200;
     int screen_height;
 };
 

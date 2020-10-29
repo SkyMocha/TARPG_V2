@@ -14,7 +14,7 @@ class Tile : public ASCII_Char{
     
 public:
     Tile() : ASCII_Char () { };
-    Tile(char const *c, int tx, int ty, TTF_Font *tf) : ASCII_Char(c, tx, ty, tf) { };
+    Tile(char const *c, int tx, int ty, TTF_Font *tf, SDL_Renderer *ren) : ASCII_Char(c, tx, ty, tf, ren) { };
     ~Tile();
     
     void setVal (double v) { val = v; };
