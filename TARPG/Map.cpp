@@ -75,6 +75,7 @@ void Map::render (SDL_Renderer *ren) {
     }
 }
 
+// Loops through all chunks and creates a thread to render it
 void Map::render_all_chunks (SDL_Renderer *ren) {
     int chunk_size = 16;
     for (int w = 0; w <= screen_width/16/chunk_size; w++) {
@@ -93,11 +94,11 @@ void Map::render_chunk (SDL_Renderer *ren, int i, int j, int chunk_size) {
 //    std::cout << " | ";
 //    std::cout << j << std::endl;
     // Loops through the part of the map that starts at display_x and ends at the screen width
-    for (int w = pos_x + i; w <= pos_x + i + chunk_size; w++) {
-        for (int h = pos_y + j; h < pos_y + j + chunk_size; h++) {
+    for (int w = pos_x + i*chunk_size; w <= pos_x + i*chunk_size + chunk_size; w++) {
+        for (int h = pos_y + j*chunk_size; h < pos_y + j*chunk_size + chunk_size; h++) {
             
 //          CHECKS TO SEE TiLE IS IN BORDERS
-            if (tiles[w][h]) { // Checks to see that the tile exists
+            if (tiles[w][h] && w >= 0 && h >= 0 && w < size && h < size) { // Checks to see that the tile exists
                 if ((int)y/16 != (int)screen_width/2/16 || (int)x/16 != (int)screen_height/2/16) { // Does not render the tile below the player
                     tiles[w][h]->render(ren, x, y);
                 }
@@ -134,10 +135,17 @@ void Map::derender (int dx, int dy) {
 }
 
 void Map::move (int x, int y) {
-    pos_x += y;
-    pos_y += x * -1;
+//    Weird voodo magic to make things work !
+    pos_x += y * -1;
+    pos_y += x;
 //    std::cout << x;
 //    std::cout << " | ";
 //    std::cout << y << std::endl;
 //    derender(y, x);
+}
+
+Map::~Map() {
+    for(int i = 0; i < size; ++i) {
+        delete[] tiles[i];
+    }
 }

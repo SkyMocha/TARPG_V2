@@ -6,8 +6,8 @@
 //
 
 #include <SDL2/SDL.h>
- #include <SDL2_Image/SDL_image.h>
- #include <SDL2_ttf/SDL_ttf.h>
+#include <SDL2_Image/SDL_image.h>
+#include <SDL2_ttf/SDL_ttf.h>
 //#include <SDL_image.h>
 //#include <SDL_ttf.h>
 
@@ -26,6 +26,7 @@ class ASCII_Char
         
         ASCII_Char(char const *c, int tx, int ty, TTF_Font *f);
         ASCII_Char(char const *c, int tx, int ty, TTF_Font *f, SDL_Renderer *ren);
+        ASCII_Char(char const *c, TTF_Font *f, SDL_Renderer *ren);
 
         //Deallocates memory
         ~ASCII_Char();

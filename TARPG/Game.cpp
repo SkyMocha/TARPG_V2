@@ -37,6 +37,12 @@ void Game::init(const char *title, int width, int height, bool fullscreen)
         
         map = new Map (font, renderer, width, height);
     
+        menues = {
+            new InfoMenu(font, renderer)
+        };
+        for (int i = 0; i < sizeof(menues)/sizeof(int)-1; i++)
+            menues->update(font, renderer);
+        
         isRunning = true;
         
     }
@@ -101,6 +107,8 @@ void Game::render()
         // Render stuff below:
         player->render(renderer);
         map->render_all_chunks(renderer);
+        for (int i = 0; i < sizeof(menues)/sizeof(int)-1; i++)
+            menues[i].render(renderer);
         
         SDL_RenderPresent(renderer);
     }
@@ -111,5 +119,6 @@ void Game::clean()
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
+    map->~Map();
     std::cout << "Game cleaned!" << std::endl;
 }

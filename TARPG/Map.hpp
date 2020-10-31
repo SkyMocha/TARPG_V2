@@ -16,6 +16,7 @@
 class Map {
     
 public:
+    ~Map();
     Map();
     Map (TTF_Font *tf, SDL_Renderer *tr, int sw, int sh);
     
@@ -29,8 +30,8 @@ public:
     void move (int tx, int ty);
     
 private:
-    int size = 500;
-    Tile **tiles[500];
+    int size = 750;
+    Tile **tiles[750];
     Noise *noise;
     
     TTF_Font *ttf;

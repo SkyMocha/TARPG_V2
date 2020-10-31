@@ -11,6 +11,7 @@
 #include "SDL2/SDL.h"
 
 #include "Map.hpp"
+#include "InfoMenu.hpp"
 
 class Game {
     
@@ -37,6 +38,8 @@ private:
     Player *player;
     
     Map *map;
+    
+    Menu *menues;
 };
 
 #endif /* Game_hpp */
