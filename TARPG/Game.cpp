@@ -35,11 +35,12 @@ void Game::init(const char *title, int width, int height, bool fullscreen)
         
         player = new Player(width/2/16, height/2/16, font, renderer);
         
-        map = new Map (font, renderer, width, height);
-    
         menues = {
             new InfoMenu(font, renderer)
         };
+        
+        map = new Map (font, renderer, menues, width, height);
+        
         for (int i = 0; i < sizeof(menues)/sizeof(int)-1; i++)
             menues->update(font, renderer);
         
@@ -106,9 +107,12 @@ void Game::render()
         
         // Render stuff below:
         player->render(renderer);
+        map->update_menues(1);
         map->render_all_chunks(renderer);
-        for (int i = 0; i < sizeof(menues)/sizeof(int)-1; i++)
+        for (int i = 0; i < sizeof(menues)/sizeof(int)-1; i++) {
+            menues[i].update(font, renderer);
             menues[i].render(renderer);
+        }
         
         SDL_RenderPresent(renderer);
     }

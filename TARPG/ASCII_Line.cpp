@@ -13,7 +13,18 @@ ASCII_Line::ASCII_Line (int tx, int ty, const char * ln) {
     y = ty;
     line = ln;
     
-    rect.w = ((int)strlen (line)-1) * 16;
+    rect.w = ((int)strlen (line)) * 16 / 2;
+    width = ((int)strlen (line)) * 16 / 2;
+    rect.h = 16;
+}
+
+ASCII_Line::ASCII_Line (int tx, int ty, const char * ln, int w) {
+    x = tx;
+    y = ty;
+    line = ln;
+    
+    rect.w = w*16;
+    width = w*16;
     rect.h = 16;
 }
 
@@ -30,6 +41,7 @@ void ASCII_Line::render(SDL_Renderer *ren) {
         
     rect.x = x*16;
     rect.y = y*16;
+    rect.w = width;
     
     SDL_RenderCopy(ren, message, NULL, &rect);
 

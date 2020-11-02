@@ -10,6 +10,9 @@
 
 #include "ASCII_Char.hpp"
 #include "ASCII_Line.hpp"
+#include <string>
+#include <sstream>
+#include <iostream>
 
 class Menu
 {
@@ -21,6 +24,20 @@ class Menu
     
         virtual void render (SDL_Renderer *ren) = 0; // Abstract render method
         virtual void update (TTF_Font *font, SDL_Renderer *ren) = 0; // Abstract update/store method
+        virtual void update_pos (int tx, int ty) { printf("ATTEMPTING TO ACCESS IN-ACCESSIBLE FUNCTION"); };
+    
+        void update_all_w();
+    
+        int get_max_w();
+        int get_max_h();
+        int get_x() {return x;}
+        int get_y () {return y;}
+    
+        void set_width (int w) { width = w; }
+        void set_height (int h) { height = h; }
+    
+        void set_ln_count (int tln ) { lnCount = tln; }
+        int get_ln () { return lnCount; }
     
     private:
         int width;
@@ -29,6 +46,7 @@ class Menu
         int y;
         int open_key;
         const char * name;
+        int lnCount;
 };
 
 #endif /* Menu_hpp */

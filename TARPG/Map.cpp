@@ -21,11 +21,13 @@
         print (f"{y * 100 / height}% DONE!")
 */
 
-Map::Map(TTF_Font *tf, SDL_Renderer *tr, int sh, int sw) {
+Map::Map(TTF_Font *tf, SDL_Renderer *tr, Menu *m, int sh, int sw) {
     screen_width = sw;
     screen_height = sh;
     
     ttf = tf;
+    
+    menues = m;
     
     noise = new Noise(size);
     
@@ -93,14 +95,27 @@ void Map::render_chunk (SDL_Renderer *ren, int i, int j, int chunk_size) {
 //    std::cout << i;
 //    std::cout << " | ";
 //    std::cout << j << std::endl;
+    
     // Loops through the part of the map that starts at display_x and ends at the screen width
     for (int w = pos_x + i*chunk_size; w <= pos_x + i*chunk_size + chunk_size; w++) {
         for (int h = pos_y + j*chunk_size; h < pos_y + j*chunk_size + chunk_size; h++) {
             
+//          Checks to see if the tile is on a no zone
+            bool on_menu = false;
+            for (int i = 0; i < no_zones_size; i++){
+                if (x <= no_zones[i] && no_zones[i+1] >= x) {
+                    if (y <= no_zones[i+2] && no_zones[i+3] >= y) {
+                        on_menu = true;
+                    }
+                }
+            }
+            
 //          CHECKS TO SEE TiLE IS IN BORDERS
             if (tiles[w][h] && w >= 0 && h >= 0 && w < size && h < size) { // Checks to see that the tile exists
                 if ((int)y/16 != (int)screen_width/2/16 || (int)x/16 != (int)screen_height/2/16) { // Does not render the tile below the player
-                    tiles[w][h]->render(ren, x, y);
+                    if (!on_menu) {
+                        tiles[w][h]->render(ren, x, y);
+                    }
                 }
             }
             x+=16;
@@ -108,6 +123,30 @@ void Map::render_chunk (SDL_Renderer *ren, int i, int j, int chunk_size) {
         x = j*chunk_size*16;
         y+=16;
     }
+}
+
+// Updates the menues into an array called no_zone that shows the bounds of where all the menues are so nothing is rendered behind them
+void Map::update_menues (int count){
+//    int tnz[count*4];
+    no_zones = new int [count*4];
+    for (int i = 0; i < count; i++){
+//       Weird voodo math magic to get the width border
+        no_zones[i*4] = screen_height - menues[i].get_x();
+        no_zones[i*4+1] = menues[i].get_max_w();
+        
+//        std::cout << screen_width - menues[i].get_y();
+//        std::cout << "   ";
+//        std::cout << screen_width - menues[i].get_max_h() << std::endl;
+//
+//        std::cout << menues[i].get_x();
+//        std::cout << "   ";
+//        std::cout << menues[i].get_max_w() << std::endl;
+        
+//      Weird voodo math magic to get the height border
+        no_zones[i*4+2] = screen_width - menues[i].get_y();
+        no_zones[i*4+3] = menues[i].get_max_h();
+    }
+    no_zones_size = count;
 }
 
 // Derenders the outer-most line in a certain direction
@@ -138,6 +177,8 @@ void Map::move (int x, int y) {
 //    Weird voodo magic to make things work !
     pos_x += y * -1;
     pos_y += x;
+    
+    menues[0].update_pos (pos_x, pos_y);
 //    std::cout << x;
 //    std::cout << " | ";
 //    std::cout << y << std::endl;
